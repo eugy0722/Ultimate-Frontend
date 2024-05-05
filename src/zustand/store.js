@@ -8,6 +8,8 @@ const useUserStore = create(
       user: null,
       accessToken: null,
       refreshToken: null,
+      search: [],
+      setSearch: (search) => set({ search: search }),
       setUser: (user, accessToken, refreshToken) =>
         set({
           user: user,

@@ -77,7 +77,7 @@ function Formulary() {
                 type="name"
                 name="name"
                 aria-invalid={errors.name ? "true" : "false"}
-                placeholder="Name of your business"
+                placeholder="Nome do negócio"
                 {...register("name", { maxLength: 40 })}
                 fullWidth
               />
@@ -99,7 +99,7 @@ function Formulary() {
                 {...register("type", {})}
               >
                 <MenuItem value={"Producto"}>Producto</MenuItem>
-                <MenuItem value={"Servicos"}>Serviços</MenuItem>
+                <MenuItem value={"Servicos"}>Serviço</MenuItem>
               </Select>
               <FormHelperText
                 error

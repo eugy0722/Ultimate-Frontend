@@ -5,7 +5,10 @@ import MinimalLayout from "../layouts/MinimalLayout/index";
 
 // render - login
 const MapApp = Loadable(lazy(() => import("../pages/Application/MapApp")));
-
+const SearcApp = Loadable(lazy(() => import("../pages/Application/SearchApp")));
+const View = Loadable(
+  lazy(() => import("../components/profile-component/ViewProduct"))
+);
 // ==============================|| AUTH ROUTING ||============================== //
 
 const ApplicationRoutes = {
@@ -15,6 +18,14 @@ const ApplicationRoutes = {
     {
       path: "map",
       element: <MapApp />,
+    },
+    {
+      path: "search",
+      element: <SearcApp />,
+    },
+    {
+      path: "search/product",
+      element: <View />,
     },
   ],
 };

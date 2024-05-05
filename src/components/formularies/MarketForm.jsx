@@ -33,7 +33,7 @@ function Formulary() {
     <>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <Stack spacing={1}>
               <InputLabel htmlFor="name-market">Nome Do Mercado*</InputLabel>
               <OutlinedInput
@@ -41,7 +41,7 @@ function Formulary() {
                 id="name-market-register"
                 type="name"
                 name="name"
-                placeholder="Kongoleses"
+                placeholder="ex: Kongoleses"
                 {...register("name", {
                   required: true,
                   minLength: 5,
@@ -64,19 +64,39 @@ function Formulary() {
           </Grid>
           <Grid item xs={12} md={6}>
             <Stack spacing={1}>
-              <InputLabel htmlFor="geo-market">Localização*</InputLabel>
+              <InputLabel htmlFor="latitude-market">Localização</InputLabel>
               <OutlinedInput
                 fullWidth
-                id="geo-market-register"
-                type="geo"
-                name="geo"
-                placeholder="Introduze a market's geolocalization"
-                {...register("geo", { required: true })}
+                id="latitude-market-register"
+                type="latitude"
+                name="latitude"
+                placeholder="Introduza a latitude do mercado"
+                {...register("latitude", { required: true })}
                 inputProps={{}}
-                aria-invalid={errors.geo ? "true" : "false"}
+                aria-invalid={errors.latitude ? "true" : "false"}
               />
-              <FormHelperText error id="helper-text-geo-market">
-                {errors.geo?.type === "required" && (
+              <FormHelperText error id="helper-text-latitude-market">
+                {errors.latitude?.type === "required" && (
+                  <p role="alert">Um nome é requerido</p>
+                )}
+              </FormHelperText>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={6} marginTop={"20px"}>
+            <Stack spacing={1}>
+              <InputLabel htmlFor="logitude-market"> </InputLabel>
+              <OutlinedInput
+                fullWidth
+                id="logitude-market-register"
+                type="logitude"
+                name="logitude"
+                placeholder="Introduza a logitude do mercado"
+                {...register("logitude", { required: true })}
+                inputProps={{}}
+                aria-invalid={errors.logitude ? "true" : "false"}
+              />
+              <FormHelperText error id="helper-text-logitude-market">
+                {errors.logitude?.type === "required" && (
                   <p role="alert">Um nome é requerido</p>
                 )}
               </FormHelperText>

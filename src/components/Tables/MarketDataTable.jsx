@@ -32,8 +32,9 @@ export default function DataTable() {
 
   const columns = [
     { id: "id_market", label: "ID", minWidth: 35 },
-    { id: "name", label: "Nome", minWidth: 170 },
-    { id: "geo", label: "Geolocalizações", minWidth: 135 },
+    { id: "name", label: "Nome", minWidth: 165 },
+    { id: "latitude", label: "Latitude", minWidth: 75 },
+    { id: "logitude", label: "Logitude", minWidth: 75 },
     { id: "update", label: "Actualizar", minWidth: 25, align: "center" },
     { id: "delete", label: "Delete", minWidth: 25, align: "center" },
     { id: "detail", label: "Detalhes", minWidth: 25, align: "center" },
@@ -52,11 +53,12 @@ export default function DataTable() {
   }, []);
 
   const setData = (row) => {
-    let { id_market, name, geo } = row;
+    let { id_market, name, latitude, logitude } = row;
 
     localStorage.setItem("ID", id_market);
     localStorage.setItem("Name", name);
-    localStorage.setItem("Geo", geo);
+    localStorage.setItem("logitude", logitude);
+    localStorage.setItem("latitude", latitude);
   };
 
   const deleteMarket = (row) => {

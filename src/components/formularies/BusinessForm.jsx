@@ -45,7 +45,7 @@ function Formulary() {
                 type="name"
                 name="name"
                 aria-invalid={errors.name ? "true" : "false"}
-                placeholder="Name of your business"
+                placeholder="Nome do negócio"
                 {...register("name", {
                   required: "E requerido um nome",
                   maxLength: 40,
@@ -73,7 +73,7 @@ function Formulary() {
                 {...register("type", { required: true })}
               >
                 <MenuItem value={"Producto"}>Producto</MenuItem>
-                <MenuItem value={"Servicos"}>Serviços</MenuItem>
+                <MenuItem value={"Servicos"}>Serviço</MenuItem>
               </Select>
               <FormHelperText error id="helper-text-type-signup">
                 {errors.type?.type === "required" && (

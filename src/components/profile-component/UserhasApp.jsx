@@ -24,7 +24,7 @@ const UserhasApp = () => {
           </li>
           <li className="checkmark mb-6">
             <Typography variant="h3">
-              <Link to={"#"}>Productos, Serviços e Mercados</Link>
+              <Link to={"/app/search"}>Productos, Serviços e Mercados</Link>
             </Typography>
             <div className="text-lg text-gray-600"></div>
           </li>
@@ -64,7 +64,7 @@ const UserhasApp = () => {
       </>
     );
   }
-  if (user.perfil === "admin") {
+  if (user.perfil === "Administrador") {
     return (
       <>
         <Typography variant="h2" sx={{ marginBottom: 5 }}>
