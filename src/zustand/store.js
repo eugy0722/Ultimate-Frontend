@@ -10,6 +10,8 @@ const useUserStore = create(
       refreshToken: null,
       search: [],
       setSearch: (search) => set({ search: search }),
+      infoSearch: [],
+      setInfoSearch: (infoSearch) => set({ infoSearch: infoSearch }),
       setUser: (user, accessToken, refreshToken) =>
         set({
           user: user,
@@ -23,6 +25,8 @@ const useUserStore = create(
           accessToken: null,
           refreshToken: null,
           isAuthenticated: false,
+          search: [],
+          infoSearch: [],
         }),
     }),
     {

@@ -10,7 +10,7 @@ import useUserStore from "../../zustand/store";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  const { isAuthenticated, logout } = useUserStore();
+  const { isAuthenticated, logout, user } = useUserStore();
 
   // Variable with tailwindcss
   const styleLinkNav = "font-bold text-xl navbar-link hover:text-emerald-400";
@@ -36,6 +36,28 @@ const Navbar = () => {
             <p className={styleLinkHeader}>
               <Link to={"/settings/profile"}>Perfil</Link>
             </p>
+            {user.perfil === "Consumidor" ? (
+              <p className={styleLinkHeader}>
+                <Link to={"/app/search"}>Pesquise</Link>
+              </p>
+            ) : (
+              <></>
+            )}
+            {user.perfil === "Comerciante" ||
+            user.perfil === "Prestador de Serviço" ? (
+              <p className={styleLinkHeader}>
+                <Link to={"/app/management/sectorization"}>Dashboard</Link>
+              </p>
+            ) : (
+              <></>
+            )}
+            {user.perfil === "Administrador" ? (
+              <p className={styleLinkHeader}>
+                <Link to={"/dashboard/default"}>Dashboard</Link>
+              </p>
+            ) : (
+              <></>
+            )}
             <p className={styleLinkHeader}>
               <Link onClick={() => logout()}>Sair</Link>
             </p>
@@ -82,6 +104,13 @@ const Navbar = () => {
               <li className={styleLinkNav}>
                 <Link to={"/settings/profile"}>Perfil</Link>
               </li>
+              {user.perfil === "Consumidor" ? (
+                <p className={styleLinkNav}>
+                  <Link to={"/app/search"}>Pesquise</Link>
+                </p>
+              ) : (
+                <></>
+              )}
               <li className={styleLinkNav}>
                 <Link to={"#"}>Sair</Link>
               </li>

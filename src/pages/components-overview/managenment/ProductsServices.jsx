@@ -6,24 +6,25 @@ import ComponentSkeleton from "../ComponentSkeleton";
 import Formulary from "../../../components/formularies/BusinessForm";
 import DataTable from "../../../components/Tables/BusinessDataTable";
 
-const ProductService = () => (
-  <ComponentSkeleton>
-    <Grid>
+const ProductService = () => {
+  return (
+    <ComponentSkeleton>
       <Grid>
-        <Typography variant="h5" marginBottom={2}>
-          Registrar Productos ou Serviços
-        </Typography>
-        <Formulary />
+        <Grid>
+          <Typography variant="h5" marginBottom={2}>
+            Registrar Productos ou Serviços
+          </Typography>
+          <Formulary />
+        </Grid>
+        <Grid>
+          <Typography variant="h5" marginBottom={2} marginTop={2}>
+            Lista de Productos & Serviços
+          </Typography>
+          <DataTable />
+        </Grid>
       </Grid>
-      <Grid>
-        <Typography variant="h5" marginBottom={2} marginTop={2}>
-          Lista de Productos & Serviços
-        </Typography>
-
-        <DataTable />
-      </Grid>
-    </Grid>
-  </ComponentSkeleton>
-);
+    </ComponentSkeleton>
+  );
+};
 
 export default ProductService;

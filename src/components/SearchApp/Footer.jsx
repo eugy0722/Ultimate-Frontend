@@ -9,8 +9,9 @@ const Footer = () => {
           </h1>
         </div>
         <p className=" pb-[13px] opacity-70 leading-7">
-          We always make our seekers and companies find the best jobs and
-          employers find the best candidates.
+          Sua porta de entrada para desbloquear o potencial dos mercados
+          informais. Explore, analise e prospere no vibrante mundo do comércio
+          informal com nossa solução de mapeamento inovadora.
         </p>
       </div>
 

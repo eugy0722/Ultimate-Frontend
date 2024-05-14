@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-key */
+import React from "react";
+
 // imported icons from ant icons ==>
 import { SearchOutlined, ShopOutlined } from "@ant-design/icons";
 
@@ -5,21 +8,21 @@ import { SearchOutlined, ShopOutlined } from "@ant-design/icons";
 import { useForm } from "react-hook-form";
 
 // import project
-import {
-  searchProduct,
-  searchSimilarProduct,
-} from "../../zustand/searchProduct";
+import { searchSimilarProduct } from "../../zustand/searchProduct";
+import { searchMarkets, setMarket } from "../../zustand/Product/detailsProduct";
+import useInfoStore from "../../zustand/Product/store";
 
 const Search = () => {
   const { register, handleSubmit } = useForm();
+  const { markets } = useInfoStore();
 
   const handleSearch = (data) => {
-    if (data.search.length < 4) searchSimilarProduct(data);
-    else {
-      const isNull = searchProduct(data);
-      if (isNull) searchSimilarProduct(data);
-    }
+    if (data.search.length > 0) searchSimilarProduct(data);
   };
+
+  React.useEffect(() => {
+    searchMarkets();
+  });
 
   return (
     <div className="searchDiv grid gap-10 bg-gray-800 rounded-[10px] p-[3rem]">
@@ -44,13 +47,25 @@ const Search = () => {
           <div className="flex gap-2 items-center">
             <ShopOutlined className="text-[25px] icon" />
             <select
+              id="id_market"
               type="text"
               className="bg-transparent text-emerald-400 focus:outline-none w-[100%]"
-              placeholder="Pesquese Neste Mercado..."
+              name="id_market"
+              {...register("id_market")}
             >
-              <option value="">Kongoleses</option>
-              <option value="">Kikolo</option>
-              <option value="">Sao Paulo</option>
+              <option>seleciona o mercado*</option>
+              {markets.map((market) => {
+                return (
+                  <option
+                    value={market.id_market}
+                    onClick={() => {
+                      setMarket(market);
+                    }}
+                  >
+                    {market.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
@@ -63,7 +78,7 @@ const Search = () => {
         </div>
       </form>
 
-      <div className="secDiv flex items-center gap-10 justify-center">
+      {/* <div className="secDiv flex items-center gap-10 justify-center">
         <div className="singleSearch flex items-center gap-2">
           <label htmlFor="relevance" className="text-[#808080] font-semibold">
             Ordernar por:
@@ -78,7 +93,7 @@ const Search = () => {
           </select>
         </div>
         <span className="text-[#a1a1a1] cursor-pointer">Clear All</span>
-      </div>
+      </div> */}
     </div>
   );
 };

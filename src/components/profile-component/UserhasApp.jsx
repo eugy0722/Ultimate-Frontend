@@ -9,8 +9,11 @@ const UserhasApp = () => {
   if (user.perfil === "Consumidor") {
     return (
       <>
+        <Typography variant="h2" sx={{ marginBottom: 5 }}>
+          Aplicações úteis:
+        </Typography>
         <ul className="text-lg sm:text-xl">
-          <li className="checkmark mb-6">
+          {/* <li className="checkmark mb-6">
             <Typography variant="h3">
               <Link to={"#"}>Lista de Desejos</Link>
             </Typography>
@@ -21,7 +24,7 @@ const UserhasApp = () => {
               <Link to={"#"}>Queridos comerciantes</Link>
             </Typography>
             <div className="text-lg text-gray-600"></div>
-          </li>
+          </li> */}
           <li className="checkmark mb-6">
             <Typography variant="h3">
               <Link to={"/app/search"}>Productos, Serviços e Mercados</Link>
@@ -30,7 +33,7 @@ const UserhasApp = () => {
           </li>
           <li className="checkmark mb-6">
             <Typography variant="h3">
-              <Link to={"#"}>Mapas</Link>
+              <Link to={"/app/map"}>Mapas</Link>
             </Typography>
             <div className="text-lg text-gray-600"></div>
           </li>
@@ -41,22 +44,15 @@ const UserhasApp = () => {
   if (user.perfil === "Comerciante") {
     return (
       <>
+        <Typography variant="h2" sx={{ marginBottom: 5 }}>
+          Aplicações úteis:
+        </Typography>
         <ul className="text-lg sm:text-xl">
           <li className="checkmark mb-6">
             <Typography variant="h3">
-              <Link to={"#"}>Meus Productos ou Serviços</Link>
-            </Typography>
-            <div className="text-lg text-gray-600"></div>
-          </li>
-          <li className="checkmark mb-6">
-            <Typography variant="h3">
-              <Link to={"#"}>Meu Local de Trabalho</Link>
-            </Typography>
-            <div className="text-lg text-gray-600"></div>
-          </li>
-          <li className="checkmark mb-6">
-            <Typography variant="h3">
-              <Link to={"#"}>Productos, Serviços e Mercados</Link>
+              <Link to={"/app/management/sectorization"}>
+                Pagina de Gerenciamento
+              </Link>
             </Typography>
             <div className="text-lg text-gray-600"></div>
           </li>
@@ -77,7 +73,7 @@ const UserhasApp = () => {
             </Typography>
             <div className="text-lg text-gray-600"></div>
           </li>
-          <li className="checkmark mb-6">
+          {/* <li className="checkmark mb-6">
             <Typography variant="h3">
               <Link to={"#"}>Consultar Mercados</Link>
             </Typography>
@@ -88,7 +84,7 @@ const UserhasApp = () => {
               <Link to={"#"}>Consultar Productos e Serviços</Link>
             </Typography>
             <div className="text-lg text-gray-600"></div>
-          </li>
+          </li> */}
         </ul>
       </>
     );

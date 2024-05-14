@@ -1,4 +1,8 @@
+import axios from "axios";
+import { Link } from "react-router-dom";
+
 // material-ui
+import { Button } from "@mui/material";
 import * as React from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -8,42 +12,67 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import axios from "axios";
-// assets
-import { DeleteOutlined } from "@ant-design/icons";
+
+// import project
+import useUserStore from "../../zustand/store";
+import { backendRoutes } from "../../utils/routes";
 
 // icons
-
-// Import Project
-import { backendRoutes } from "../../utils/routes";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 // eslint-disable-next-line react/prop-types
 export default function DataTable() {
-  const [rows, setRows] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const icons = { del: <DeleteOutlined /> };
+  const [rows, setRows] = React.useState([]);
+  const icons = { del: <DeleteOutlined />, edit: <EditOutlined /> };
+
+  const { user } = useUserStore();
 
   const columns = [
-    { id: "id_business", label: "ID", minWidth: 35 },
-    { id: "name", label: "Nome do producto", minWidth: 175 },
-    { id: "type", label: "Tipo do producto", minWidth: 75 },
-    { id: "price", label: "Preço do producto", minWidth: 45 },
-    { id: "id_sector", label: "id_sector", minWidth: 175 },
-    { id: "description", label: "Descrição", minWidth: 105 },
+    { id: "id_relation", label: "ID", minWidth: 45 },
+    { id: "marketname", label: "Nome do Market", minWidth: 175 },
+    { id: "sectorname", label: "Nome do Sector", minWidth: 175 },
+    { id: "marketlatitude", label: "Latitude", minWidth: 75 },
+    { id: "marketlogitude", label: "Logitude", minWidth: 75 },
     { id: "delete", label: "Delete", minWidth: 25, align: "center" },
   ];
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:8080${backendRoutes.FindBusinesses}`)
-      .then((res) => {
-        setRows(res.data);
+      .get(
+        `http://localhost:8080${backendRoutes.FindAllRelations}${user.id_user}`
+      )
+      .then((response) => {
+        setRows(response.data);
       })
       .catch((error) => {
         console.log(error);
+        setRows([]);
       });
-  }, []);
+  }, [Paper]);
+
+  const setData = () => {
+    // let { id_sector, name } = row;
+    // localStorage.setItem("ID", id_sector);
+    // localStorage.setItem("Name", name);
+  };
+
+  const deleteRelation = (row) => {
+    const { id_relation } = row;
+
+    axios
+      .get(
+        `http://localhost:8080${backendRoutes.DeleteSectorization}${id_relation}`
+      )
+      .then((response) => {
+        alert(JSON.stringify(response.data, null, 2));
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.code === "ERR_BAD_REQUEST") alert("Falha na requisicao");
+      });
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -52,19 +81,6 @@ export default function DataTable() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-  };
-
-  const deleteBusiness = (row) => {
-    const { id_business } = row;
-
-    axios
-      .get(`http://localhost:8080/business/delete/${id_business}`)
-      .then((response) => {
-        alert(JSON.stringify(response.data, null, 2));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (
@@ -92,17 +108,25 @@ export default function DataTable() {
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                     {columns.map((column) => {
                       const value = row[column.id];
-                      if (column.id === "delete") {
+                      if (column.id === "delete" || column.id === "update") {
                         if (column.id === "delete") {
                           return (
                             <TableCell key={column.id} align={column.align}>
                               <button
                                 onClick={() => {
-                                  deleteBusiness(row);
+                                  deleteRelation(row);
                                 }}
                               >
                                 {icons.del}
                               </button>
+                            </TableCell>
+                          );
+                        } else {
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              <Button onClick={() => setData(row)}>
+                                <Link to={"update"}>{icons.edit}</Link>
+                              </Button>
                             </TableCell>
                           );
                         }

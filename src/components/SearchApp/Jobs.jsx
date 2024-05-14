@@ -1,21 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import { Button } from "@mui/material";
 
 import useUserStore from "../../zustand/store";
-import { Link } from "react-router-dom";
+import { InfoProduct } from "../../zustand/searchProduct";
 
 const Jobs = () => {
   const { search } = useUserStore();
   const [rows, setRows] = React.useState([]);
 
   React.useEffect(() => {
-    if (search) setRows(search);
-
-    console.log(rows);
+    if (search) {
+      setRows(search);
+    }
   }, [search]);
-
-  const setData = (row) => {
-    localStorage.setItem("Product found", row);
-  };
 
   return (
     <div>
@@ -24,54 +23,54 @@ const Jobs = () => {
           ({
             id_relation,
             businessname,
-            businessdescription,
-            username,
             businesstype,
+            businessdescription,
             price,
+            username,
+            number_phone,
+            email,
+            first_name,
           }) => {
             return (
               <div
                 key={id_relation}
                 className="group group/item singleJob w-[100%] p-[20px] bg-emerald-400 rounded [10px] shadow-lg
-        shadow-greyIsh-400/70 hover:shadow-lg "
+        shadow-greyIsh-400/70 hover:shadow-lg"
               >
                 <span className="flex justify-between items-center gap-4">
-                  <h1 className="text-[26px] font-bold text-textColor group-hover:text-black">
-                    {businessname}
+                  <h1 className="text-[24px] font-bold text-textColor group-hover:text-black">
+                    Descrição do producto: {businessdescription}
                   </h1>
                 </span>
+                <p className="text-[18px] text-black mt-[20px]">
+                  {businessname}
+                </p>
 
                 <h6 className="text-[#070606] text-[16px]">
                   {price || "---"} Kz
                 </h6>
-                <h6 className="text-[#070606] text-[16px]">{businesstype}</h6>
-                <p className="text-[18px] text-[#959595] pt-[20px]  border-t-[2px] mt-[20px] group-hover:text-black">
-                  {businessdescription}
-                </p>
+                <h6 className="text-[#070606] text-[16px] mb-4">
+                  {businesstype}
+                </h6>
 
-                <div className="company flex items-center gap-2">
-                  <img src={"image"} alt="Company Logo" className="w-[10%]" />
-                  <span className="text-[14px] py-[1rem] block group-hover:text-black">
-                    {username}
+                <div className="company border-t-2 flex gap-4 text-[18px] ">
+                  {/* <img src={"image"} alt="Company Logo" className="w-[10%]" /> */}
+                  <span className="py-[1rem] block group-hover:text-black">
+                    Mercador: {username || first_name}
                   </span>
+                  <p className="text-black py-[1rem]">
+                    Número de Telefone: {number_phone}{" "}
+                  </p>
+                  <p className="text-black py-[1rem]">Email: {email}</p>
                 </div>
-
-                <button
-                  className="border-[2px] rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor
-           hover:bg-emerald-950 group-hover/item:text-textColor group-hover:text-black"
-                  onClick={() =>
-                    setData({
-                      id_relation,
-                      businessname,
-                      businessdescription,
-                      username,
-                      businesstype,
-                      price,
-                    })
-                  }
+                <Button
+                  onClick={() => {
+                    InfoProduct(id_relation);
+                  }}
+                  className="w-full bg-emerald-900 border-2 border-white text-2xl text-center text-white"
                 >
-                  <Link to={"product"}>Ver mais</Link>
-                </button>
+                  <Link to={"product"}>Mais Informações</Link>
+                </Button>
               </div>
             );
           }

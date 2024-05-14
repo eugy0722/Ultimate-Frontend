@@ -57,7 +57,10 @@ const AuthRegister = () => {
       .then((res) => {
         if (res.status === 200) navigate("/login");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        alert(JSON.stringify({ Erro: "Dados existentes" }));
+        console.log(error);
+      });
   };
 
   return (

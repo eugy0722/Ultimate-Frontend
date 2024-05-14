@@ -67,7 +67,7 @@ function Formulary() {
     <>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <Stack spacing={1}>
               <InputLabel htmlFor="name-business">
                 Nome do Novo Negócio*
@@ -86,6 +86,20 @@ function Formulary() {
                   <p role="alert">O nome deve ter no maximo 40 letras</p>
                 )}
               </FormHelperText>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Stack spacing={1}>
+              <InputLabel htmlFor="name-business">Preço*</InputLabel>
+              <OutlinedInput
+                id="price-business-register"
+                type="price"
+                name="price"
+                aria-invalid={errors.price ? "true" : "false"}
+                placeholder="Preço"
+                {...register("price")}
+                fullWidth
+              />
             </Stack>
           </Grid>
           <Grid item xs={12} md={6}>

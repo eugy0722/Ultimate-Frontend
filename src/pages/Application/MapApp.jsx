@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-key */
 // Google maps library
 import {
   GoogleMap,
   LoadScript,
+  Marker,
   StandaloneSearchBox,
 } from "@react-google-maps/api";
 import React from "react";
@@ -9,23 +11,27 @@ import Search from "../../components/Search";
 import SpeedDial from "../../components/map-components/SpeedDial";
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-
-const containerStyle = {
-  width: "100%",
-  height: "100%",
-};
-
-const center = {
-  lat: -3.745,
-  lng: -38.523,
-};
+import useInfoStore from "../../zustand/Product/store";
 
 const MapApp = () => {
   const [map, setMap] = React.useState(null);
   const [searchBox, setSearchBox] = React.useState(null);
+  const { latitude, logitude } = useInfoStore();
 
   const onMapLoad = (map) => {
     setMap(map);
+  };
+
+  console.log(latitude, logitude);
+
+  const containerStyle = {
+    width: "100%",
+    height: "100%",
+  };
+
+  const center = {
+    lat: latitude,
+    lng: logitude,
   };
 
   const onLoad = (ref) => {
@@ -65,7 +71,7 @@ const MapApp = () => {
         <GoogleMap
           onLoad={onMapLoad}
           mapContainerStyle={containerStyle}
-          center={center}
+          setCenter={center}
           zoom={15}
         >
           <div className="flex flex-row">
@@ -79,6 +85,8 @@ const MapApp = () => {
               <Search text="Digite o endereco" />
             </StandaloneSearchBox>
           </div>
+          <Marker key={8} position={{ lat: latitude, lng: logitude }} />
+          {(latitude, logitude) ? <></> : <></>}
         </GoogleMap>
       </LoadScript>
     </div>

@@ -11,37 +11,41 @@ import TableRow from "@mui/material/TableRow";
 import axios from "axios";
 // assets
 import { DeleteOutlined } from "@ant-design/icons";
+import { backendRoutes } from "../../utils/routes";
+import useInfoStore from "../../zustand/store";
 
 // icons
 
-// Import Project
-import { backendRoutes } from "../../utils/routes";
-
-// eslint-disable-next-line react/prop-types
 export default function DataTable() {
-  const [rows, setRows] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rows, setRows] = React.useState([]);
   const icons = { del: <DeleteOutlined /> };
+
+  const { sector } = useInfoStore();
+
+  console.log(sector);
 
   const columns = [
     { id: "id_business", label: "ID", minWidth: 35 },
     { id: "name", label: "Nome do producto", minWidth: 175 },
     { id: "type", label: "Tipo do producto", minWidth: 75 },
     { id: "price", label: "Preço do producto", minWidth: 45 },
-    { id: "id_sector", label: "id_sector", minWidth: 175 },
     { id: "description", label: "Descrição", minWidth: 105 },
-    { id: "delete", label: "Delete", minWidth: 25, align: "center" },
   ];
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:8080${backendRoutes.FindBusinesses}`)
-      .then((res) => {
-        setRows(res.data);
+      .get(
+        `http://localhost:8080${backendRoutes.FindBusinessesAboutSector}${sector.id_sector}`
+      )
+      .then((response) => {
+        console.log(response.data);
+        setRows(response.data);
       })
       .catch((error) => {
         console.log(error);
+        setRows([]);
       });
   }, []);
 

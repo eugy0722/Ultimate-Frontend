@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 
 // icons
 
+// eslint-disable-next-line react/prop-types
 export default function DataTable({ idMarket }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);

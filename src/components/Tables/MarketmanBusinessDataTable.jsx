@@ -16,34 +16,41 @@ import { DeleteOutlined } from "@ant-design/icons";
 
 // Import Project
 import { backendRoutes } from "../../utils/routes";
+import useUserStore from "../../zustand/store";
 
 // eslint-disable-next-line react/prop-types
-export default function DataTable() {
+export default function DataTable({ id_sector }) {
   const [rows, setRows] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const { user } = useUserStore();
   const icons = { del: <DeleteOutlined /> };
 
   const columns = [
-    { id: "id_business", label: "ID", minWidth: 35 },
-    { id: "name", label: "Nome do producto", minWidth: 175 },
-    { id: "type", label: "Tipo do producto", minWidth: 75 },
-    { id: "price", label: "Preço do producto", minWidth: 45 },
-    { id: "id_sector", label: "id_sector", minWidth: 175 },
-    { id: "description", label: "Descrição", minWidth: 105 },
+    { id: "id_relation", label: "ID", minWidth: 35 },
+    { id: "businessname", label: "Nome do producto", minWidth: 175 },
+    { id: "businesstype", label: "Tipo do producto", minWidth: 75 },
+    { id: "businessprice", label: "Preço do producto", minWidth: 45 },
+    { id: "sectorname", label: "Nome do Sector", minWidth: 175 },
+    { id: "businessdescription", label: "Descrição", minWidth: 105 },
     { id: "delete", label: "Delete", minWidth: 25, align: "center" },
   ];
 
   React.useEffect(() => {
-    axios
-      .get(`http://localhost:8080${backendRoutes.FindBusinesses}`)
-      .then((res) => {
-        setRows(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    if (id_sector) {
+      axios
+        .get(
+          `http://localhost:8080${backendRoutes.FindAllMarketmanBusiness}${user.id_user}/${id_sector}`
+        )
+        .then((res) => {
+          setRows(res.data);
+        })
+        .catch((error) => {
+          setRows([]);
+          console.log(error);
+        });
+    }
+  });
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -55,10 +62,12 @@ export default function DataTable() {
   };
 
   const deleteBusiness = (row) => {
-    const { id_business } = row;
+    const { id_relation } = row;
 
     axios
-      .get(`http://localhost:8080/business/delete/${id_business}`)
+      .get(
+        `http://localhost:8080${backendRoutes.DeleteMarketmanBusiness}${id_relation}`
+      )
       .then((response) => {
         alert(JSON.stringify(response.data, null, 2));
       })
